@@ -3,7 +3,7 @@
 background () {
   echo $$ > /tmp/check_lenny.pid
   while true;
-email="ffuentes@darktcp.net"
+email="youemaila@here.com"
 subj="Lenny Recording $(date)"
 do
     for f in /tmp/Lenny/*.wav
