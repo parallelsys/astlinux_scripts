@@ -1,0 +1,77 @@
+exten => blacklist,1,GotoIf($[${DB_EXISTS(blacklist/${CALLERID(num)})} = 0]?200) ; blacklist test 
+ same => n,GotoIf($["${DB_RESULT}" = "0"]?hangup) 
+ same => n,GotoIf($["${DB_RESULT}" = "2"]?voicemail)
+ same => n,GotoIf($["${DB_RESULT}" = "3"]?lenny)
+
+ same => n,Goto(zapteller,1) ; "1" TN in blacklist database, answer and Zapateller 
+ 
+ same => n(voicemail),Verbose(0,${CALLERID(num)} has been blacklisted to vmail)
+ same => n,Voicemail(4222@default,u) ; "2" TN in blacklist, direct to voicemail
+
+ same => n(hangup),Verbose(0,${CALLERID(num)} has been blacklisted to no-answer) ; "0" TN in blacklist, don't answer 
+ same => n,Playback(please-try-again-later) 
+ same => n,Hangup()
+ 
+ same => n(lenny),Verbose(0,${CALLERID(num)} has been blacklisted to lenny)
+ same => n,Answer
+ same => n,Set(TIMEOUT(absolute)=1800)
+ same => n,Set(MACHINE=0)
+ same => n,Set(OPTION=5)
+ same => n,Set(TALK_DETECTED=0)
+ same => n,Set(RECORDING=${UNIQUEID})
+
+ same => n,MixMonitor(/tmp/Lenny/${RECORDING}.wav)
+ same => n,NoOp(Recording will be available: /tmp/Lenny/${RECORDING}.wav)
+
+ same => n,Gosub(playit(Lenny1))
+ same => n,Gosub(playit(Lenny2))
+ same => n,Gosub(playitonce(Lenny3))
+ same => n,Gosub(playitonce(Lenny4))
+ same => n,Gosub(playitonce(Lenny5))
+ same => n,Gosub(playitonce(Lenny6))
+ same => n,Gosub(playitonce(Lenny7))
+ same => n,Gosub(playitonce(Lenny8))
+ same => n,Gosub(playitonce(Lenny9))
+ same => n,Gosub(playitonce(Lenny10))
+ same => n,Gosub(playitonce(Lenny11))
+ same => n,Gosub(playitonce(Lenny12))
+ same => n,Gosub(playitonce(Lenny13))
+ same => n,Gosub(playitonce(Lenny14))
+ same => n,Gosub(playitonce(Lenny15))
+ same => n,Gosub(playitonce(Lenny16))
+ same => n,Gosub(playitonce(Lenny2))
+ same => n,Gosub(playitonce(Lenny3))
+ same => n,Gosub(playitonce(Lenny6))
+ same => n,Gosub(playitonce(Lenny8))
+ same => n,Gosub(playitonce(Lenny9))
+ same => n,Gosub(playitonce(Lenny10))
+ same => n,Gosub(playitonce(Lenny14))
+ same => n,Playback(en/tt-monkeys)
+ same => n,Hangup
+
+ same => n(playit),NoOp(Lenny speaks and repeats until reponse)
+ same => n,Set(LOCAL(lennyclip)=${ARG1})
+ same => n(oncemo),Set(TALK_DETECTED=0)
+ same => n,Background(lenny/${lennyclip})
+ same => n,AMD(2500,1500,800,5000,100,50,3,256)
+ same => n,NoOp(${AMDCAUSE})
+ same => n,GotoIf($["${AMDCAUSE:0:17}"="INITIALSILENCE-25"]?reststop)
+ same => n(mach),WaitForSilence(700,3)
+ same => n,Goto(humn)
+ same => n(reststop),WaitForSilence(800,2)
+ same => n,Goto(oncemo)
+ same => n(humn),Return
+
+ same => n(playitonce),NoOp(Lenny speaks once)
+ same => n,Set(LOCAL(lennyclip)=${ARG1})
+ same => n(noresponse),Background(lenny/${lennyclip})
+ same => n,AMD(2500,1500,800,5000,100,50,3,256)
+ same => n,NoOp(${AMDCAUSE})
+ same => n(mach2),WaitForSilence(2000,1)
+ same => n(humn2),Return
+
+exten => zapteller,1,Verbose(0,${CALLERID(num)} has been blacklisted to zap)
+ same => n,Playback(sit)
+ same => n,Playback(ss-noservice)
+ same => n,Congestion(60)
+ same => n,Hangup()
