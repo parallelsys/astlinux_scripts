@@ -1,3 +1,5 @@
+# v1.0a Initial release of AstLinux Blacklist DB dialplan Example
+
 exten => blacklist,1,GotoIf($[${DB_EXISTS(blacklist/${CALLERID(num)})} = 0]?200) ; blacklist test 
  same => n,GotoIf($["${DB_RESULT}" = "0"]?hangup) 
  same => n,GotoIf($["${DB_RESULT}" = "2"]?voicemail)
