@@ -5,8 +5,7 @@ found in AstLinux.
 
 #
 The script check_lenny checks for lenny recordings and emails them.
-The script runs in the background and sleeps for 30 seconds.
 
-#
+The script runs in the background and sleeps for 30 seconds.
 
 More to come.
