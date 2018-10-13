@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+background () {
+  echo $$ > /tmp/check_lenny.pid
+  while true;
+email="ffuentes@darktcp.net"
+subj="Lenny Recording $(date)"
+do
+    for f in /tmp/Lenny/*.wav
+    do
+      if [ -f $f ]
+      then
+        fuser -s $f
+        if [ $? -ne 0 ]
+        then
+	cp "${f%\.*}".wav "/tmp/"
+       fi
+     fi
+done 
+cd /tmp/
+    for i in *.*.wav; do
+	if [ -e "$i" ]; then
+	file=`basename "$i" .wav`
+	echo "Subject: New Lenny Recording \
+From: AsteriskPBX
+To: $email" | \
+mime-pack "New Recording" "$file.wav" "audio/wav" | \
+sendmail -t
+rm "$file.wav"
+rm -f "/tmp/Lenny/$file.wav"
+	fi
+      done
+
+   sleep 30
+  done
+  rm -f /tmp/check_recording.pid
+}
+
+background&
