@@ -1,10 +1,11 @@
 #!/bin/bash
+#Created by Fernando Fuentes. v1.0b
 #
 background () {
   echo $$ > /tmp/check_lenny.pid
   while true;
 email="youemaila@here.com"
-subj="Lenny Recording $(date)"
+subj="Subject: Lenny Recording $(date)"
 do
     for f in /tmp/Lenny/*.wav
     do
@@ -21,7 +22,7 @@ cd /tmp/
     for i in *.*.wav; do
 	if [ -e "$i" ]; then
 	file=`basename "$i" .wav`
-	echo "Subject: New Lenny Recording \
+	echo "$subj \
 From: AsteriskPBX
 To: $email" | \
 mime-pack "New Recording" "$file.wav" "audio/wav" | \
