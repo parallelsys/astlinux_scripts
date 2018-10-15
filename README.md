@@ -25,7 +25,8 @@ The check_fax script came from the AstLinux mailing list. This has been my base 
 The script sleeps for 30 seconds and checks for faxes... Once it finds a fax it converts them to pdf and emails them.
 #
 The rclone folder contains the script to install rclone in AstLinux. [rclone](https://rclone.org/) Belongs to:
-[Nick Craig-Wood](https://www.craig-wood.com/nick/) [rclone github page](https://github.com/ncw/rclone#storage-providers) 
+[Nick Craig-Wood](https://www.craig-wood.com/nick/)
+Please visit their [rclone github page](https://github.com/ncw/rclone#storage-providers) 
 
 From the rclone page: Rclone is a command line program to sync files and directories to and from:
 
