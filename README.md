@@ -1,6 +1,6 @@
 # astlinux_scripts
 Most of my AstLinux work you will find it here.
-AstLinux short for Asterisk Linus can be found @ [astlinux](https://www.astlinux-project.org)
+AstLinux short for Asterisk Linux can be found @ [astlinux](https://www.astlinux-project.org)
 #
 
 In the dialplan_examples folder you will find just that... Dialplan examples to be use with asterisk. One popular with Astlinux is the black list DB found in AstLinux.
@@ -25,44 +25,55 @@ The check_fax script came from the AstLinux mailing list. This has been my base 
 The script sleeps for 30 seconds and checks for faxes... Once it finds a fax it converts them to pdf and emails them.
 #
 The rclone folder contains the script to install rclone in AstLinux. [rclone](https://rclone.org/) Belongs to:
-[Nick Craig-Wood](https://www.craig-wood.com/nick/). 
+[Nick Craig-Wood](https://www.craig-wood.com/nick/) @ncw. 
+
 From the rclone page: Rclone is a command line program to sync files and directories to and from:
-Amazon Drive
-Amazon S3
-Backblaze B2
-Box
-Ceph
-DigitalOcean Spaces
-Dreamhost
-Dropbox
-FTP
-Google Cloud Storage
-Google Drive
-HTTP
-Hubic
-Jottacloud
-IBM COS S3
-Memset Memstore
-Mega
-Microsoft Azure Blob Storage
-Microsoft OneDrive
-Minio
-Nextcloud
-OVH
-OpenDrive
-Openstack Swift
-Oracle Cloud Storage
-ownCloud
-pCloud
-put.io
-QingStor
-Rackspace Cloud Files
-SFTP
-Wasabi
-WebDAV
-Yandex Disk
-The local filesystem
+# Rclone
+
+Rclone *("rsync for cloud storage")* is a command line program to sync files and directories to and from
+ different cloud storage providers.
+
+# Storage providers
+
+  * Amazon Drive [:page_facing_up:](https://rclone.org/amazonclouddrive/) ([See note](https://rclone.org
+/amazonclouddrive/#status))
+  * Amazon S3 [:page_facing_up:](https://rclone.org/s3/)
+  * Backblaze B2 [:page_facing_up:](https://rclone.org/b2/)
+  * Box [:page_facing_up:](https://rclone.org/box/)
+  * Ceph [:page_facing_up:](https://rclone.org/s3/#ceph)
+  * DigitalOcean Spaces [:page_facing_up:](https://rclone.org/s3/#digitalocean-spaces)
+  * Dreamhost [:page_facing_up:](https://rclone.org/s3/#dreamhost)
+  * Dropbox [:page_facing_up:](https://rclone.org/dropbox/)
+  * FTP [:page_facing_up:](https://rclone.org/ftp/)
+  * Google Cloud Storage [:page_facing_up:](https://rclone.org/googlecloudstorage/)
+  * Google Drive [:page_facing_up:](https://rclone.org/drive/)
+  * HTTP [:page_facing_up:](https://rclone.org/http/)
+  * Hubic [:page_facing_up:](https://rclone.org/hubic/)
+  * Jottacloud [:page_facing_up:](https://rclone.org/jottacloud/)
+  * IBM COS S3 [:page_facing_up:](https://rclone.org/s3/#ibm-cos-s3)
+  * Memset Memstore [:page_facing_up:](https://rclone.org/swift/)
+  * Mega [:page_facing_up:](https://rclone.org/mega/)
+  * Microsoft Azure Blob Storage [:page_facing_up:](https://rclone.org/azureblob/)
+  * Microsoft OneDrive [:page_facing_up:](https://rclone.org/onedrive/)
+  * Minio [:page_facing_up:](https://rclone.org/s3/#minio)
+  * Nextcloud [:page_facing_up:](https://rclone.org/webdav/#nextcloud)
+  * OVH [:page_facing_up:](https://rclone.org/swift/)
+  * OpenDrive [:page_facing_up:](https://rclone.org/opendrive/)
+  * Openstack Swift [:page_facing_up:](https://rclone.org/swift/)
+  * Oracle Cloud Storage [:page_facing_up:](https://rclone.org/swift/)
+  * ownCloud [:page_facing_up:](https://rclone.org/webdav/#owncloud)
+  * pCloud [:page_facing_up:](https://rclone.org/pcloud/)
+  * put.io [:page_facing_up:](https://rclone.org/webdav/#put-io)
+  * QingStor [:page_facing_up:](https://rclone.org/qingstor/)
+  * Rackspace Cloud Files [:page_facing_up:](https://rclone.org/swift/)
+  * SFTP [:page_facing_up:](https://rclone.org/sftp/)
+  * Wasabi [:page_facing_up:](https://rclone.org/s3/#wasabi)
+  * WebDAV [:page_facing_up:](https://rclone.org/webdav/)
+  * Yandex Disk [:page_facing_up:](https://rclone.org/yandex/)
+  * The local filesystem [:page_facing_up:](https://rclone.org/local/)
+
 #
+
 In my case I use it for Backblaze B2 sense there is no native backblaze support in AstLinux.
 Fore more details please visit their site: [rclone](https://rclone.org/)
 
