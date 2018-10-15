@@ -17,5 +17,8 @@ Please see musiconhold.conf for example of use.
 For more information please go to: [MOH at voip-info](https://www.voip-info.org/music-on-hold/)
 
 **To make it simple, The use of unlicensed music streams or radio stations for MOH is ILLEGAL.**
+#
+The check_fax script came from the AstLinux mailing list. This has been my base for several of my scripts.
+The script sleeps for 30 seconds and checks for faxes... Once it finds faxes it converts them to pdf and emails them.
 
 More to come.
