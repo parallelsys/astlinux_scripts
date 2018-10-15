@@ -1,0 +1,45 @@
+#!/bin/bash
+#
+
+background () {
+  echo $$ > /tmp/check_fax.pid
+  while true;
+    do
+    for f in /tmp/*.tiff
+    do
+      if [ -f $f ]
+      then
+        fuser -s $f
+        if [ $? -ne 0 ]
+        then
+          tiff2pdf -o "${f%\.*}".pdf "$f"
+          mv -f "$f" /mnt/kd/fax
+        fi
+      fi
+    done
+
+    for f in /tmp/*.pdf
+    do
+      if [ -f $f ]
+      then
+        cidemail="${f%~*}"
+        cidemail="${cidemail#*~}"
+        email="${cidemail#*~}"
+        cid="${cidemail%~*}"
+        shortf="${f##*~}"
+        mv -f "$f" "/tmp/fax-$shortf"
+        echo "Subject: New FAX from $cid
+From: AsteriskPBX
+To: $email" | \
+mime-pack "New FAX received from $cid" "/tmp/fax-$shortf" "application/pdf" | \
+sendmail -t
+        rm -f "/tmp/fax-$shortf"
+      fi
+    done    
+
+    sleep 30
+  done
+  rm -f /tmp/check_fax.pid
+}
+
+background&
