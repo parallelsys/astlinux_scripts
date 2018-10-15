@@ -29,7 +29,7 @@ The rclone folder contains the script to install rclone in AstLinux. [rclone](ht
 
 Please visit their [rclone github page](https://github.com/ncw/rclone#storage-providers) 
 
-From the rclone page: Rclone is a command line program to sync files and directories to and from:
+From the rclone page:
 
 Rclone *("rsync for cloud storage")* is a command line program to sync files and directories to and from
  different cloud storage providers.
