@@ -6,7 +6,7 @@
 # Installation script for AstLinux done by FFuentes (parallelsys)                 #
 # https://github.com/parallelsys/astlinux_scripts                                 #
 # Script can be adjusted for any embedded file system with a persistent slice.    #
-# v1.0a                                                                           #
+# v1.0b                                                                           #
 ##################################################################################
 
 ###
