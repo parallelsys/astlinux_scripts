@@ -85,7 +85,7 @@ version=`$rclonebin/rclone --version 2>>errors | head -n 1`
 rm -rf $tmp
 
 printf "\n${version} has successfully installed."
-printf '\nNow run "/mnt/kd/.rclone/bin/rclone config --config /mnt/kd/.rclone/rclone.conf" for setup.
+printf '\nNow run "rclone config --config /mnt/kd/.rclone/rclone.conf" for setup.
 Check https://rclone.org/docs/ for more details.\n\n'
 
 exit 0
