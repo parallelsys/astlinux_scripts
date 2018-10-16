@@ -50,7 +50,7 @@ for i in curl;do
 		cp rclone $rclonebin
 		chmod 755 $rclonebin/rclone
 	else
-		echo unable to fetch rclone. Is there Internet acces? Exiting.
+		echo Unable to fetch rclone. Is there Internet acces? Exiting.
 		exit
 	fi
 
