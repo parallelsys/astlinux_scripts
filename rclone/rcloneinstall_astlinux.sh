@@ -21,7 +21,7 @@ rc=rclone-current-linux-amd64.zip
 #curl staging area
 fileget=https://downloads.rclone.org/$rc
 fileget2=https://astlinux.darktcp.net/scripts/ca-bundle.crt
-
+fileget3=https://astlinux.darktcp.net/scripts/startup.sh
 ###
 #unzip staging area
 unzipdir=rclone_tmp_unzip
@@ -32,7 +32,8 @@ ca=/etc/pki/tls/certs
 rclonefolder=/mnt/kd/.rclone
 rclonebin=/mnt/kd/.rclone/bin
 rclonefiles=/mnt/kd/.rclone/files
-
+aststart=/mnt/kd/.rclone/startup
+rclocal=/mnt/kd/rc.local
 ############################
 ## Now bash runner starts ##
 ############################
@@ -63,13 +64,19 @@ for i in ls;do
 		cd $ca
 		curl -O $fileget2
 		cp ca-bundle.crt $rclonefiles
-		echo Done.
 		cd $rclonefolder
 		echo Creating files.
 		touch rclone.conf
 		touch excludes
 		echo Creating links.
 		ln -s /mnt/kd/.rclone/bin/rclone /usr/sbin/rclone
+		echo Staging startup script.
+		mkdir $aststart
+		cd $aststart
+		curl -O $fileget3
+		echo "###Setup for rclone files to run at startup###" > $rclocal
+                echo "/bin/sh /mnt/kd/.rclone/startup/startup.sh" >> $rclocal
+                echo "###                Done                    ###" >> $rclocal
 		echo Done.
 	else
 		cd $rclonefolder
@@ -77,12 +84,18 @@ for i in ls;do
 		touch excludes
 		ln -s /mnt/kd/.rclone/bin/rclone /usr/sbin/rclone
 		echo $ca is present. No need for crt installation. Finishing.
+		echo "###Setup for rclone files to run at startup###" > $rclocal
+                echo "/bin/sh /mnt/kd/.rclone/startup/startup.sh" >> $rclocal
+                echo "###                Done                    ###" >> $rclocal
 	fi
 done
 done
 
-version=`$rclonebin/rclone --version 2>>errors | head -n 1`
 rm -rf $tmp
+
+#Frome rclone install script#
+
+version=`$rclonebin/rclone --version 2>>errors | head -n 1`
 
 printf "\n${version} has successfully installed."
 printf '\nNow run "rclone config --config /mnt/kd/.rclone/rclone.conf" for setup.

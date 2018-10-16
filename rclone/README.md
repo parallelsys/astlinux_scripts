@@ -1,14 +1,20 @@
 **Initial release of rclone for AstLinux.**
 
-rcloneinstall_astlinux.sh Installation script.
+rcloneinstall_astlinux.sh Installation script. Straight forward script.
+Download it to your astlinux linux system and run.
+#
+startup.sh is to be set to run on rc.local after installation. This script sets
+your files and symlinks after your system reboots. AstLinux filesystem is under unionfs and most files
+get erased after after a reboot. Persistent storage only exists under /mnt/kd
+The file must be added to run under /mnt/kd/rc.local
 
-startup.sh is to be set to run on rc.local after installation
+The install script will do this for you.
+#
 
 rclone-auto.sh This is the script you set on cron to do your backups.
 Must be edit to fit your env!.
 
-The rclone-auto.sh script has not been tested!
 Backup script credit goes to Jared Males.
 #
 
-**Beware: rclone-auto.sh has not been tested. Work in progress.**
+**Beware: Under development.**
