@@ -12,9 +12,12 @@ The install script will do this for you.
 #
 
 rclone-auto.sh This is the script you set on cron to do your backups.
+The installer will place it under /mnt/kd/.rclone/files/rclone-auto.sh
 Must be edit to fit your env!.
+
+The script will also install a cron job.
+the cron is just an example and is disable by default "#"
 
 Backup script credit goes to Jared Males.
 #
-
 **Beware: Under development.**

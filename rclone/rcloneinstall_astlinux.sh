@@ -22,6 +22,7 @@ rc=rclone-current-linux-amd64.zip
 fileget=https://downloads.rclone.org/$rc
 fileget2=https://astlinux.darktcp.net/scripts/ca-bundle.crt
 fileget3=https://astlinux.darktcp.net/scripts/startup.sh
+fileget4=https://astlinux.darktcp.net/scripts/rclone-auto.sh
 ###
 #unzip staging area
 unzipdir=rclone_tmp_unzip
@@ -34,6 +35,7 @@ rclonebin=/mnt/kd/.rclone/bin
 rclonefiles=/mnt/kd/.rclone/files
 aststart=/mnt/kd/.rclone/startup
 rclocal=/mnt/kd/rc.local
+kdcron=/mnt/kd/crontabs/root
 ############################
 ## Now bash runner starts ##
 ############################
@@ -70,24 +72,54 @@ for i in ls;do
 		touch excludes
 		echo Creating links.
 		ln -s /mnt/kd/.rclone/bin/rclone /usr/sbin/rclone
-		echo Staging startup script.
-		mkdir $aststart
-		cd $aststart
-		curl -O $fileget3
-		echo "###Setup for rclone files to run at startup###" > $rclocal
-                echo "/bin/sh /mnt/kd/.rclone/startup/startup.sh" >> $rclocal
-                echo "###                Done                    ###" >> $rclocal
-		echo Done.
 	else
 		cd $rclonefolder
 		touch rclone.conf
 		touch excludes
 		ln -s /mnt/kd/.rclone/bin/rclone /usr/sbin/rclone
 		echo $ca is present. No need for crt installation. Finishing.
-		echo "###Setup for rclone files to run at startup###" > $rclocal
-                echo "/bin/sh /mnt/kd/.rclone/startup/startup.sh" >> $rclocal
-                echo "###                Done                    ###" >> $rclocal
 	fi
+
+	for i in ls;do
+		echo Staging startup script.
+		$i $rclocal 2>/dev/null
+		if [ $? -ne 0 ]; then
+			echo rc.local not present. Creating a new one.
+			mkdir $aststart
+			cd $aststart
+			curl -O $fileget3
+			chmod +x startup.sh
+			echo "###Setup for rclone files to run at startup###" > $rclocal
+			echo "/bin/sh /mnt/kd/.rclone/startup/startup.sh" >> $rclocal
+			echo "###                Done                    ###" >> $rclocal
+			echo Staging cron.
+			cd $rclonefiles
+			curl -O $fileget4
+			chmod +x rclone-auto.sh
+			echo "###" >> $kdcron
+			echo "### Cron for rclone backup   ###" >> $kdcron 
+			echo "### Ples uncomment when ready###" >> $kdcron
+			echo "#00 04 * * * /bin/sh /mnt/kd/.rclone/files/rclone-auto.sh" >> $kdcron
+			echo Done.
+		else
+		
+			echo $rclocal is present. No need for rc.local creation. Appending and Finishing.
+			cd $aststart
+			curl -O $fileget3
+			chmod +x startup.sh
+			echo "###Setup for rclone files to run at startup###" >> $rclocal
+			echo "/bin/sh /mnt/kd/.rclone/startup/startup.sh" >> $rclocal
+			echo "###                Done                    ###" >> $rclocal
+			echo Staging cron.
+			cd $rclonefiles
+			curl -O $fileget4
+			chmod +x rclone-auto.sh
+			echo "###" >> $kdcron
+			echo "### Cron for rclone backup   ###" >> $kdcron
+			echo "### Please uncomment when ready###" >> $kdcron
+			echo "#00 04 * * * /bin/sh /mnt/kd/.rclone/files/rclone-auto.sh" >> $kdcron
+		fi
+done
 done
 done
 
@@ -100,5 +132,7 @@ version=`$rclonebin/rclone --version 2>>errors | head -n 1`
 printf "\n${version} has successfully installed."
 printf '\nNow run "rclone config --config /mnt/kd/.rclone/rclone.conf" for setup.
 Check https://rclone.org/docs/ for more details.\n\n'
+printf "\nIMPORTANT! Once you edit rclone-auto.sh to fit your env, Edit the 
+crone tab file to enable the cron job. Please eadjust to desire time."
 
 exit 0
