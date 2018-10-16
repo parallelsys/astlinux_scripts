@@ -1,6 +1,6 @@
 #rclone for AstLinux
-Initial release of rclone for AstLinux.
-#
+**Initial release of rclone for AstLinux.**
+
 rcloneinstall_astlinux.sh Installation script.
 
 startup.sh is to be set to run on rc.local after installation
