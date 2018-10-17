@@ -37,6 +37,4 @@ Rclone *("rsync for cloud storage")* is a command line program to sync files and
 In my case I use it for Backblaze B2 sense there is no native backblaze support in AstLinux.
 Fore more details please visit their site: [rclone](https://rclone.org/)
 
-**Note: The install script is a work in progress. Will upload soon**
-
 More to come.
