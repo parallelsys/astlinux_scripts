@@ -14,7 +14,7 @@ do
         fuser -s $f
         if [ $? -ne 0 ]
         then
-	cp "${f%\.*}".wav "/tmp/"
+	mv -f "${f%\.*}".wav "/tmp/"
        fi
      fi
 done 
@@ -28,7 +28,6 @@ To: $email" | \
 mime-pack "New Recording" "$file.wav" "audio/wav" | \
 sendmail -t
 rm "$file.wav"
-rm -f "/tmp/Lenny/$file.wav"
 	fi
       done
 
